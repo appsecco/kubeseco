@@ -32,7 +32,7 @@ Ensure `kubectl` is configured to use the Kubernetes cluster where you want to d
 
 > Refer to `Under The Hood` section in this document for details on what the script does.
 
-> To setup a Kubernetes cluster in Google Cloud and configure `kubectl`, refer to `cluster_create.sh` script in this repository.
+> To setup a Kubernetes cluster in Google Cloud and configure `kubectl`, refer to `cluster_create_gcp.sh` script in this repository.
 
 ### Expose API Service
 
