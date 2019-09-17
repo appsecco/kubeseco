@@ -10,8 +10,8 @@ This project contains proof of concept implementation of a *solution* consisting
 ## How to Use
 
 1. Try out the solution by following *this* document
-2. Read the [Internals](internals.md) doc to get an idea of data schema etc.
-3. Read the [Development](development.md) doc to get an idea on local setup for development.
+2. Read the [Internals](Internals.md) doc to get an idea of data schema etc.
+3. Read the [Development](Development.md) doc to get an idea on local setup for development.
 4. Refer to [Tasks](Tasks.todo)
 
 ## Requirements
