@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: certspotter-tool
+  labels:
+    app: certspotter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: certspotter
+  template:
+    metadata:
+      labels:
+        app: certspotter
+    spec:
+      containers:
+      - name: certspotter-ctr
+        imagePullPolicy: Always
+        image: abh1sek/appsec-workflow-certspotter
+        # resources:
+        #   requests:
+        #     memory: "80Mi"
+        #     cpu: "30m"
+        #   limits:
+        #     memory: "100Mi"
+        #     cpu: "50m"
+        command: ["/usr/bin/workflow-tool-adapter"]
+        env:
+          - name: MINIO_ENDPOINT
+            valueFrom:
+              secretKeyRef:
+                  name: common-secrets
+                  key: MINIO_ENDPOINT
+          - name: MINIO_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                  name: minio-secret
+                  key: accesskey
+          - name: MINIO_SECRET_KEY
+            valueFrom:
+              secretKeyRef:
+                  name: minio-secret
+                  key: secretkey
+          - name: MINIO_OUTPUT_BUCKET
+            value: tools-output
+          - name: NATS_URL
+            valueFrom:
+              secretKeyRef:
+                  name: common-secrets
+                  key: NATS_URL
+          - name: MINIO_OUTPUT_FILE
+            value: scans/{{SCAN_ID}}/tool-certspotter-{{TIMESTAMP}}.json
+          - name: TOOL_NAME
+            value: certspotter
+          - name: NATS_CONSUMER_TOPIC
+            value: input.domain
+          - name: NATS_QUEUE_GROUP_NAME
+            value: certspotter-tool
+          - name: TOOL_COMPLETION_EVENT_TOPIC
+            value: output.tool.certspotter
+          - name: TOOL_EXEC_PATTERN
+            value: "curl -s https://certspotter.com/api/v0/certs?domain={{TARGET}} | jq '[.[].dns_names] | flatten | sort | unique'"
+          - name: TOOL_EXEC_TIMEOUT
+            value: "900"
+          - name: TOOL_CAPTURE_STDOUT
+            value: "yes"

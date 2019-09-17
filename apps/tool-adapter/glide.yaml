@@ -1,0 +1,8 @@
+package: .
+import:
+- package: github.com/minio/minio-go
+  version: v6.0.34
+- package: github.com/nats-io/go-nats
+  version: v1.7.2
+- package: github.com/sirupsen/logrus
+  version: v1.4.2

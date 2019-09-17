@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-service-app
+  labels:
+    app: api-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-service
+  template:
+    metadata:
+      labels:
+        app: api-service
+    spec:
+      containers:
+      - name: api-service-ctr
+        imagePullPolicy: Always
+        image: abh1sek/appsec-workflow-api-service
+        env:
+          - name: NATS_URL
+            valueFrom:
+              secretKeyRef:
+                  name: common-secrets
+                  key: NATS_URL
+          - name: MINIO_ENDPOINT
+            valueFrom:
+              secretKeyRef:
+                  name: common-secrets
+                  key: MINIO_ENDPOINT
+          - name: MINIO_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                  name: minio-secret
+                  key: accesskey
+          - name: MINIO_SECRET_KEY
+            valueFrom:
+              secretKeyRef:
+                  name: minio-secret
+                  key: secretkey
+          - name: MINIO_OUTPUT_BUCKET
+            value: tools-output
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-service
+spec:
+  selector:
+    app: api-service
+  type: ClusterIP
+  ports:
+  - port: 3000
+    targetPort: 3000

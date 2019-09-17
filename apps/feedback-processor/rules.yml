@@ -1,0 +1,27 @@
+workflow:
+  name: Demo Workflow
+  version: 1.0.0
+  author: root@localhost.local
+rules:
+  - name: certspotter-feedback
+    match:  # Match any attribute of Input Event using regex
+      tool_name: certspotter
+      target_info.asset_type: domain
+    transform:  # Must always transform to an array of values
+      jsonpath: $[*]
+    actions:
+      - type: enqueue
+        on: item  # item/bulk
+        queue_name: input.host
+        asset_type: host
+  - name: appdiscovery-feedback
+    match:
+      tool_name: appdiscovery
+      target_info.asset_type: host
+    transform:
+      jsonpath: $..url
+    actions:
+      - type: enqueue
+        on: item
+        queue_name: input.url
+        asset_type: url

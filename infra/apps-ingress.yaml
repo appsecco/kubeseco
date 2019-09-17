@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: apps-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: cs-server-monitor.cloudnativesecurity.info
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: server-monitor
+          servicePort: 80
+  - host: cs-server-admin.cloudnativesecurity.info
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: server-admin
+          servicePort: 80

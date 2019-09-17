@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: feedback-processor-app
+  labels:
+    app: feedback-processor
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: feedback-processor
+  template:
+    metadata:
+      labels:
+        app: feedback-processor
+    spec:
+      containers:
+      - name: feedback-processor-ctr
+        imagePullPolicy: Always
+        image: abh1sek/appsec-workflow-feedback-processor
+        env:
+          - name: NATS_URL
+            valueFrom:
+              secretKeyRef:
+                  name: common-secrets
+                  key: NATS_URL
+          - name: NATS_CONSUMER_TOPIC
+            value: output.tool.*
+          - name: MINIO_ENDPOINT
+            valueFrom:
+              secretKeyRef:
+                  name: common-secrets
+                  key: MINIO_ENDPOINT
+          - name: MINIO_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                  name: minio-secret
+                  key: accesskey
+          - name: MINIO_SECRET_KEY
+            valueFrom:
+              secretKeyRef:
+                  name: minio-secret
+                  key: secretkey
+          - name: MINIO_OUTPUT_BUCKET
+            value: tools-output
+

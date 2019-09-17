@@ -1,0 +1,23 @@
+Apps:
+  ✔ NodeJS micro service to handle input and write to topic @done(19-09-10 17:34)
+  ✔ Subdomain enumeration (certspotter) @done(19-09-10 17:34)
+  ✔ HTTP endpoint discovery @done(19-09-16 22:20)
+  ☐ Basic application scan
+  ✔ API endpoint to get scan result @done(19-09-16 10:58)
+  ☐ API endpoint to list available JSON files (path) for a scan_id
+  ✔ Common tool output process for feedback @done(19-09-16 22:20)
+    Using jsonpath and YAML based rules
+
+Infra:
+  ✔ Cluster setup @done(19-09-10 13:02)
+  ✔ Helm tiller installation @done(19-09-10 13:02)
+  ✔ NATS installation @done(19-09-10 13:02)
+  ✔ Minio installation @done(19-09-10 13:02)
+
+Future Work:
+  ☐ Use persistent storage for storing results with Meta-Data
+    Look at some light weight document DB options
+  ☐ User Interface
+    ☐ Scan submission
+    ☐ Scan status
+    ☐ Report
