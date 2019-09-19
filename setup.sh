@@ -5,6 +5,20 @@
 echo "[+] Installing Helm tiller service"
 kubectl apply -f infra/helm-rbac.yaml
 helm init --service-account tiller --history-max 200
+sleep 30
+
+echo "[+] Fixing helm tiller default security issue for 2.x"
+kubectl -n kube-system delete service tiller-deploy
+kubectl -n kube-system patch deployment tiller-deploy --patch '
+spec:
+  template:
+    spec:
+      containers:
+        - name: tiller
+          ports: []
+          command: ["/tiller"]
+          args: ["--listen=localhost:44134"]
+'
 sleep 40
 helm version
 
