@@ -60,7 +60,7 @@ spec:
           - name: TOOL_COMPLETION_EVENT_TOPIC
             value: output.tool.certspotter
           - name: TOOL_EXEC_PATTERN
-            value: "curl -s https://certspotter.com/api/v0/certs?domain={{TARGET}} | jq '[.[].dns_names] | flatten | sort | unique'"
+            value: "curl -s https://certspotter.com/api/v0/certs?domain={{TARGET}} | jq '[.[].dns_names] | flatten | sort | unique | map(select(. | contains(\"{{TARGET}}\")))'"
           - name: TOOL_EXEC_TIMEOUT
             value: "900"
           - name: TOOL_CAPTURE_STDOUT
