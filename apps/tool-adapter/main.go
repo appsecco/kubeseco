@@ -152,11 +152,11 @@ func minioDeployOutput(event *PubSubEvent, stdOut bytes.Buffer, outputFilePath s
 	}
 
 	if err != nil {
-		log.Info("Sending success completion event")
-		sendCompletionEvent(COMPLETION_EVENT_SUCCESS, event, getConfigValue("TOOL_NAME"), location)
-	} else {
 		log.Warn("Sending error completion event")
 		sendCompletionEvent(COMPLETION_EVENT_ERROR, event, getConfigValue("TOOL_NAME"), "")
+	} else {
+		log.Info("Sending success completion event")
+		sendCompletionEvent(COMPLETION_EVENT_SUCCESS, event, getConfigValue("TOOL_NAME"), location)
 	}
 }
 
