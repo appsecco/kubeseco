@@ -17,6 +17,7 @@ Infra:
 Future Work:
   ☐ Use persistent storage for storing results with Meta-Data
     Look at some light weight document DB options
+  ☐ Explore serverless (KNative/OpenFAAS) as an option for running tools
   ☐ User Interface
     ☐ Scan submission
     ☐ Scan status
