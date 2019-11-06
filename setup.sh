@@ -56,3 +56,7 @@ kubectl apply -f apps/tools/certspotter/deploy.yml
 
 echo "[+] Deploying appdiscovery tool"
 kubectl apply -f apps/tools/appdiscovery/deploy.yml
+
+echo "[+] Deploying mozilla observatory (API) tool"
+kubectl apply -f apps/tools/mozilla-observatory-api/deploy.yml
+
