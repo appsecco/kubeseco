@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: observatory-api-tool
+  labels:
+    app: observatory-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: observatory-api
+  template:
+    metadata:
+      labels:
+        app: observatory-api
+    spec:
+      containers:
+      - name: observatory-api-ctr
+        imagePullPolicy: Always
+        image: abh1sek/appsec-workflow-mozilla-observatory-api
+        # resources:
+        #   requests:
+        #     memory: "80Mi"
+        #     cpu: "30m"
+        #   limits:
+        #     memory: "100Mi"
+        #     cpu: "50m"
+        command: ["/usr/bin/workflow-tool-adapter"]
+        env:
+          - name: MINIO_ENDPOINT
+            valueFrom:
+              secretKeyRef:
+                  name: common-secrets
+                  key: MINIO_ENDPOINT
+          - name: MINIO_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                  name: minio-secret
+                  key: accesskey
+          - name: MINIO_SECRET_KEY
+            valueFrom:
+              secretKeyRef:
+                  name: minio-secret
+                  key: secretkey
+          - name: MINIO_OUTPUT_BUCKET
+            value: tools-output
+          - name: NATS_URL
+            valueFrom:
+              secretKeyRef:
+                  name: common-secrets
+                  key: NATS_URL
+          - name: MINIO_OUTPUT_FILE
+            value: scans/{{SCAN_ID}}/tool-observatory-api-{{TIMESTAMP}}.json
+          - name: TOOL_NAME
+            value: observatory-api
+          - name: NATS_CONSUMER_TOPIC
+            value: input.host
+          - name: NATS_QUEUE_GROUP_NAME
+            value: observatory-api-tool
+          - name: TOOL_COMPLETION_EVENT_TOPIC
+            value: output.tool.observatory-api
+          - name: TOOL_EXEC_PATTERN
+            value: "./run.sh {{TARGET}}"
+          - name: TOOL_EXEC_TIMEOUT
+            value: "900"
+          - name: TOOL_CAPTURE_STDOUT
+            value: "yes"
+
