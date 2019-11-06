@@ -60,7 +60,7 @@ spec:
           - name: TOOL_COMPLETION_EVENT_TOPIC
             value: output.tool.observatory-api
           - name: TOOL_EXEC_PATTERN
-            value: "./run.sh {{TARGET}}"
+            value: "/app/run.sh {{TARGET}}"
           - name: TOOL_EXEC_TIMEOUT
             value: "900"
           - name: TOOL_CAPTURE_STDOUT
