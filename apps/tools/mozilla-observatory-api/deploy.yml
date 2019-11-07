@@ -4,6 +4,7 @@ metadata:
   name: observatory-api-tool
   labels:
     app: observatory-api
+    type: security-tool
 spec:
   replicas: 1
   selector:
@@ -13,18 +14,12 @@ spec:
     metadata:
       labels:
         app: observatory-api
+        type: security-tool
     spec:
       containers:
       - name: observatory-api-ctr
         imagePullPolicy: Always
         image: abh1sek/appsec-workflow-mozilla-observatory-api
-        # resources:
-        #   requests:
-        #     memory: "80Mi"
-        #     cpu: "30m"
-        #   limits:
-        #     memory: "100Mi"
-        #     cpu: "50m"
         command: ["/usr/bin/workflow-tool-adapter"]
         env:
           - name: MINIO_ENDPOINT

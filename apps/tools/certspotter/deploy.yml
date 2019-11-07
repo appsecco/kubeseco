@@ -4,6 +4,7 @@ metadata:
   name: certspotter-tool
   labels:
     app: certspotter
+    type: security-tool
 spec:
   replicas: 1
   selector:
@@ -13,18 +14,12 @@ spec:
     metadata:
       labels:
         app: certspotter
+        type: security-tool
     spec:
       containers:
       - name: certspotter-ctr
         imagePullPolicy: Always
         image: abh1sek/appsec-workflow-certspotter
-        # resources:
-        #   requests:
-        #     memory: "80Mi"
-        #     cpu: "30m"
-        #   limits:
-        #     memory: "100Mi"
-        #     cpu: "50m"
         command: ["/usr/bin/workflow-tool-adapter"]
         env:
           - name: MINIO_ENDPOINT

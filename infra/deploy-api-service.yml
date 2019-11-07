@@ -4,6 +4,7 @@ metadata:
   name: api-service-app
   labels:
     app: api-service
+    type: platform
 spec:
   replicas: 1
   selector:
@@ -13,6 +14,7 @@ spec:
     metadata:
       labels:
         app: api-service
+        type: platform
     spec:
       containers:
       - name: api-service-ctr

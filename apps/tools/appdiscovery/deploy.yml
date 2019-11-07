@@ -4,6 +4,7 @@ metadata:
   name: appdiscovery-tool
   labels:
     app: appdiscovery
+    type: security-tool
 spec:
   replicas: 1
   selector:
@@ -13,18 +14,12 @@ spec:
     metadata:
       labels:
         app: appdiscovery
+        type: security-tool
     spec:
       containers:
       - name: appdiscovery-ctr
         imagePullPolicy: Always
         image: abh1sek/appsec-workflow-appdiscovery
-        # resources:
-        #   requests:
-        #     memory: "80Mi"
-        #     cpu: "30m"
-        #   limits:
-        #     memory: "100Mi"
-        #     cpu: "50m"
         command: ["/usr/bin/workflow-tool-adapter"]
         env:
           - name: MINIO_ENDPOINT
