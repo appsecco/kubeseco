@@ -22,6 +22,13 @@ This project contains proof of concept implementation of a *solution* consisting
 
 ## Get Started
 
+### Clone This Repository
+
+```
+git clone https://github.com/appsecco/kubeseco
+cd kubeseco
+```
+
 ### Deploy Apps and Infra
 
 Ensure `kubectl` is configured to use the Kubernetes cluster where you want to deploy the setup. Execute the following script to setup the cluster.
