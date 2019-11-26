@@ -1,11 +1,11 @@
 #!/bin/bash
 
-if [ -z `which kubectl` ];
+if [ -z `which kubectl` ]; then
 	echo "[-] kubectl not found"
 	exit
 fi;
 
-if [ -z `which helm` ];
+if [ -z `which helm` ]; then
 	echo "[-] helm not found"
 	exit
 fi;
