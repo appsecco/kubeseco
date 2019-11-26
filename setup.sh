@@ -1,6 +1,14 @@
 #!/bin/bash
 
-# Test for kubectl, helm etc.
+if [ -z `which kubectl` ];
+	echo "[-] kubectl not found"
+	exit
+fi;
+
+if [ -z `which helm` ];
+	echo "[-] helm not found"
+	exit
+fi;
 
 echo "[+] Installing Helm tiller service"
 kubectl apply -f infra/helm-rbac.yaml
